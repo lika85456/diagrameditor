@@ -1,12 +1,34 @@
-import { ClassObject } from "../../Diagram/ClassObject";
-import { HTMLDrawable } from "../HTMLDrawer";
+import { ClassObject, Method } from "../../Diagram/ClassObject";
+import { ObjectHTMLDrawer } from "./ObjectHTMLDrawer";
 
-export class ClassObjectHTMLDrawer implements HTMLDrawable{
+export class ClassObjectHTMLDrawer extends ObjectHTMLDrawer{
+
+  public static TITLE = "Class";
+
   constructor(private obj:ClassObject){
-
+    super();
   }
 
   public getHTMLElement():HTMLElement{
-    throw "not implemented";
+    let base = this.getBaseElement();
+    base.append(this.getTitle());
+
+    let getMethod = this.getMethod;
+    this.obj.getMethods().forEach((method:Method)=>{
+      base.append(getMethod(method));
+    });
+
+    return base;
+  }
+
+  /**
+   * Creates HTML element for title
+   * @return [description]
+   */
+  private getTitle():HTMLElement{
+    let title = document.createElement("h3");
+    title.innerHTML = ClassObjectHTMLDrawer.TITLE;
+    title.setAttribute("class","object_title");
+    return title;
   }
 }

@@ -20,6 +20,10 @@ export class ClassObject extends DiagramObject{
   public removeMethodAt(index:number){
     this.methods.splice(index,1);
   }
+
+  public getMethods():Method[]{
+    return this.methods;
+  }
 }
 
 export class Method{
